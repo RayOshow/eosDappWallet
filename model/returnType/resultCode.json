@@ -1,0 +1,14 @@
+{
+    "success": {
+        "code": 0,
+        "msg": "success"
+    },
+    "error":{
+        "code": 100,
+        "msg": "server error"
+    },
+    "password_match":{
+        "code": 217,
+        "msg": "Password match error."
+    }
+}
