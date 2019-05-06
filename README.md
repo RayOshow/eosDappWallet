@@ -11,7 +11,9 @@ It is eos wallet made by Node.js for the pre-allowed Dapps.
    var dbConfig = require('./database').local; // or dev or prod
    
    %DB info%
+   
    //////////////////////////////////////////////////////////
+   
     create table ACCOUNT
     (
       accountSeq int auto_increment comment 'account sequence'
@@ -26,6 +28,7 @@ It is eos wallet made by Node.js for the pre-allowed Dapps.
       seq int null,
       chainId varchar(100) null
     );
+    
     /////////////////////////////////////////////////////////
 
 [Insert DApp account info]
@@ -33,6 +36,7 @@ It is eos wallet made by Node.js for the pre-allowed Dapps.
   And you must insert chain's info too.
   
   %Example%
+  
   table CHAIN_INFO
   seq = 1 (EOS mainnet), Chain id = aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906
   table account
