@@ -12,11 +12,12 @@
     "date-utils": "^1.2.21",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
-    "eosjs": "^16.0.9",
+    "eosjs": "^20.0.0",
     "express": "~4.16.0",
     "express-ipfilter": "^1.0.1",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "node-fetch": "^2.5.0"
   }
 }

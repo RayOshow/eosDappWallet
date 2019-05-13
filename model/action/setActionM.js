@@ -1,7 +1,12 @@
 var resultCode = require('../returnType/resultCode.json');
 var returnFormat = require('../returnType/resultCode.js');
 var security = require('../common/securityUtil');
-var com = require('../common/comUtil');
+
+const { Api, JsonRpc, RpcError } = require('eosjs');
+const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');      // development only
+const fetch = require('node-fetch');                                    // node only; not needed in browsers
+const { TextEncoder, TextDecoder } = require('util');                   // node only; native TextEncoder/Decoder
+//const { TextEncoder, TextDecoder } = require('text-encoding');          // React Native, IE11, and Edge Browsers only
 
 module.exports = {
     do: async function (actionNm, param) {
@@ -10,11 +15,14 @@ module.exports = {
         var privateKey =  await security.getPrivateKey(param.chainId, param.from, pwd);
         if(!privateKey) return returnFormat.returnFormat(resultCode.password_match, null);
 
-        const eos = await com.init(param.chainId, param.httpEndpoint, param.from, privateKey);
+        const signatureProvider = new JsSignatureProvider([privateKey]);
+        const rpc = new JsonRpc(param.httpEndpoint, { fetch });
+        const api = new Api({ rpc, signatureProvider, textDecoder: new TextDecoder(), textEncoder: new TextEncoder() });
+
         let resultData = null;
         let resultCd = resultCode.error;
 
-        const result = await eos.transaction(
+        const result = await api.transact(
             {
                 actions: [
                     {
@@ -27,15 +35,20 @@ module.exports = {
                         data:param.data
                     }
                 ]
-            },{broadcast: true, sign: true, verbose: true}
+            },{
+                blocksBehind: 3,
+                expireSeconds: 30,
+            }
         ).then(trx => {
             console.log(`Trx ID: ${trx.transaction_id}`);
-            resultCd = resultCode.success
-            resultData = {'txid': trx.transaction_id}
-
-        }).catch(error => {
+            resultCd = resultCode.success;
+            resultData = {'txid': trx.transaction_id};
+            }
+        ).catch(error => {
             let errorJson ={};
+
             try{
+                console.error(error);
                 errorJson = JSON.parse(error);
 
                 let msg = errorJson.error.details[0].message;

@@ -1,8 +1,9 @@
 var connection = require('../../config/db/connection')();
-var com = require('../common/comUtil');
 var tms = require('../../public/javascripts/tms.util');
 var resultCode = require('../returnType/resultCode.json');
 var returnFormat = require('../returnType/resultCode.js');
+var fetch = require('node-fetch');
+const { JsonRpc } = require('eosjs');
 
 module.exports = {
     tableRows: async function(param) {
@@ -13,12 +14,11 @@ module.exports = {
         * ex) lower_bound: 1 , upper_bound: 3 seq 1~2번까지 조회
         * ex) lower_bound: 0 , upper_bound: -1 전체검색
         * */
-
-        //1. eosjs init
-        const eos = await com.init(param.chainId, param.httpEndpoint);
+        // Instantiate a new JsonRpc object, with the Network Api Uri, and a request object
+        const rpc = new JsonRpc(param.httpEndpoint, { fetch });
 
         //2. Get info
-        let result = await eos.getTableRows({
+        let result = await rpc.get_table_rows({
             json : true
             ,code : param.contractId
             ,scope: param.contractId
