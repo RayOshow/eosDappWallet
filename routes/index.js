@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var get = require('./getAction')
-var set = require('./setAction')
+let express = require('express');
+let router = express.Router();
+let get = require('./getAction')
+let set = require('./setAction')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
