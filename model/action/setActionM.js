@@ -1,6 +1,6 @@
-var resultCode = require('../returnType/resultCode.json');
-var returnFormat = require('../returnType/resultCode.js');
-var security = require('../common/securityUtil');
+let resultCode = require('../returnType/resultCode.json');
+let returnFormat = require('../returnType/resultCode.js');
+let security = require('../common/securityUtil');
 
 const { Api, JsonRpc, RpcError } = require('eosjs');
 const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');      // development only

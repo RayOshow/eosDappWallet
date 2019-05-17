@@ -1,8 +1,8 @@
-var connection = require('../../config/db/connection')();
-var tms = require('../../public/javascripts/tms.util');
-var resultCode = require('../returnType/resultCode.json');
-var returnFormat = require('../returnType/resultCode.js');
-var fetch = require('node-fetch');
+let connection = require('../../config/db/connection')();
+let tms = require('../../public/javascripts/tms.util');
+let resultCode = require('../returnType/resultCode.json');
+let returnFormat = require('../returnType/resultCode.js');
+let fetch = require('node-fetch');
 const { JsonRpc } = require('eosjs');
 
 module.exports = {

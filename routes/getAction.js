@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var action = require("../model/action/getActionM");
+let express = require('express');
+let router = express.Router();
+let action = require("../model/action/getActionM");
 
 /* contract DB
 * @param contractId 
@@ -10,8 +10,8 @@ var action = require("../model/action/getActionM");
 * @param limit 
 * */
 router.get('/rows', async function(req, res, next) {
-    var params = req.query;
-    var result = await action.tableRows(params)
+    let params = req.query;
+    let result = await action.tableRows(params)
     console.log("Get smart contract table's info", result);
     res.json(result);
 });

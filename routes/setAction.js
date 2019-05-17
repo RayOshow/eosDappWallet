@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var action = require("../model/action/setActionM");
+let express = require('express');
+let router = express.Router();
+let action = require("../model/action/setActionM");
 
 /* 액션
  * @param contractId 
@@ -13,9 +13,9 @@ var action = require("../model/action/setActionM");
  * @param httpEndpoint httpEndpoint
  * */
 router.post('/action/:nm', async function(req, res, next) {
-    var params = req.body;
-    var actionNm = req.params.nm;
-    var result = await action.do(actionNm, params)
+    let params = req.body;
+    let actionNm = req.params.nm;
+    let result = await action.do(actionNm, params)
     res.json(result);
 });
 module.exports = router;
